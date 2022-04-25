@@ -32,7 +32,7 @@ public class Customer {
     private String password;
     @ManyToMany( fetch = FetchType.LAZY, mappedBy = "customers", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.JOIN)
-    @ToString.Exclude
+    //@ToString.Exclude
     private Set<Coupon> coupons;
 
     private void setId(int id) {

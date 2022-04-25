@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-//@Component
+@Component
 @Order(4)
 @RequiredArgsConstructor
 public class CustomerRepoCrudeTest implements CommandLineRunner {
@@ -43,8 +43,8 @@ public class CustomerRepoCrudeTest implements CommandLineRunner {
 //        customerRepo.save(customer);
 //        System.out.println("5- " + customer);
         //add purchased coupon to customer func.(join table "customer_vs_coupon")
-//        customerRepo.addCouponToCustomer(1, 5);
-//        customerRepo.addCouponToCustomer(1, 2);
+        //customerRepo.addCouponToCustomer(1, 1);
+        //customerRepo.addCouponToCustomer(1, 2);
 //        System.out.println("6- " + customerRepo.findById(2));
 //        //is purchased coupon by customer func.
 //        List<Coupon> isPurchased = couponRepo.isCouponPurchased(1, 2);
@@ -56,12 +56,12 @@ public class CustomerRepoCrudeTest implements CommandLineRunner {
 //        Set<Coupon> allCustomerCoupons = customerRepo.findById(2).get().getCoupons();
 //        allCustomerCoupons.forEach(System.out::println);
 //        //delete coupon func.
-        System.out.println("9- " + couponRepo.findAll());
-        companyRepo.deleteById(1);
-        couponRepo.deleteById(5); //Deletes from Coupons table and Customer_vs coupon table
-        System.out.println("10- " + couponRepo.findAll());
-        System.out.println("11- " + companyRepo.findById(1));
-        System.out.println("12- " + customerRepo.findById(1));
+//        System.out.println("9- " + couponRepo.findAll());
+//        companyRepo.deleteById(1);
+//        couponRepo.deleteById(5); //Deletes from Coupons table and Customer_vs coupon table
+//        System.out.println("10- " + couponRepo.findAll());
+//        System.out.println("11- " + companyRepo.findById(1));
+//        System.out.println("12- " + customerRepo.findById(1));
 
     }
 }

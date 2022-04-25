@@ -1,5 +1,6 @@
 package com.jb.coupon2demo.repositories;
 
+import com.jb.coupon2demo.beans.Category;
 import com.jb.coupon2demo.beans.Coupon;
 import com.jb.coupon2demo.beans.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -23,10 +24,20 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
     @Query(value = "INSERT INTO `customer_vs_coupons` (customer_id, coupon_id) VALUES (?,?)", nativeQuery = true)
     void addCouponToCustomer(int customer_id, int coupon_id);
 
-    @Query("SELECT coup FROM Coupon coup WHERE coup.id IN (SELECT coup.id FROM coup.customers cust WHERE cust.id = ?1 and coup.id = ?2)")
+    @Query(value = "SELECT * FROM customer_vs_coupons WHERE customer_id =? and coupon_id=?", nativeQuery = true)
+    List<Coupon> isCouponPurchased(int customer_id, int coupon_id);
+
+    @Query("SELECT coup FROM Coupon coup WHERE coup.id IN " +
+            "(SELECT coup.id FROM coup.customers cust WHERE cust.id = ?1 and coup.id = ?2)")
     Coupon findCustomerCoupon(int custId, int cpnId);
 
-    //NOT WORKING
-//    @Query(value = "SELECT c FROM customer_vs_coupons c WHERE customer_id=?1")
-//    Set<Coupon> findAllCustomerCoupons (int customer_id);
+    @Query("SELECT coup FROM Coupon coup WHERE coup.id= any " +
+            "(SELECT coup.id FROM coup.customers cust WHERE cust.id = ?1)")
+    Set<Coupon> findAllCustomerCoupons(int custId);
+
+    @Query("SELECT coup FROM Coupon coup join coup.customers cust where cust.id =?1 and coup.category = ?2")
+    public Set<Coupon> findAllCustomerCouponsByCategory(int custId, Category category);
+
+    @Query("SELECT coup FROM Coupon coup join coup.customers cust where cust.id =?1 and coup.price < ?2")
+    public Set<Coupon> findAllCustomerCouponsMaxPrice(int custId, double max_price);
 }
