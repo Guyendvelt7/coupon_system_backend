@@ -4,20 +4,18 @@ import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Customer;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
-import com.jb.coupon2demo.repositories.CompanyRepo;
-import com.jb.coupon2demo.repositories.CustomerRepo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
 
 @Service
-@RequiredArgsConstructor
-public class AdminService {
-    private final CompanyRepo companyRepo;
-    private final CustomerRepo customerRepo;
+public class AdminService extends  ClientService{
 
+    public AdminService() {
+    }
+
+    @Override
     public boolean login(String email, String password) throws CustomExceptions {
         if (email.equals("admin@admin.com") && password.equals("admin")) {
             System.out.println("Admin Connected.");

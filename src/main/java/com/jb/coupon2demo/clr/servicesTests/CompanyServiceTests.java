@@ -34,8 +34,9 @@ public class CompanyServiceTests implements CommandLineRunner {
         companyService.addCoupon(new Coupon(
                 0, company.getId(), null, Category.HOUSEHOLD_SUPPLIES, "batteries", "rechargable 24 units pack",
                 Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(30)), 2000, 50, ""));
+
         //update coupon
-        Coupon coupon = companyRepo.findOneCompanyCoupon(company.getId());
+        Coupon coupon = companyRepo.findOneCompanyCoupon(company.getId(), "4ktv");
         coupon.setAmount(1500);
         companyService.updateCoupon(coupon);
         //delete coupon
@@ -47,6 +48,7 @@ public class CompanyServiceTests implements CommandLineRunner {
         companyService.addCoupon(new Coupon(
                 0, company.getId(), null, Category.ELECTRIC_APPLIANCE, "refrigerator", "double door 300 liters",
                 Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(30)), 150, 8000, ""));
+
         //get company coupons
         Set<Coupon> companyCoupons = companyService.getAllCompanyCoupons();
         companyCoupons.forEach(System.out::println);

@@ -66,7 +66,7 @@ public class CompanyRepoCrudTest implements CommandLineRunner {
             System.out.println("7 - No coupons for this company found");
         }
       //find one company`s coupon
-        Coupon coupon = companyRepo.findOneCompanyCoupon(company.getId());
+        Coupon coupon = companyRepo.findOneCompanyCoupon(company.getId(), "6people");
         System.out.println(coupon);
 
         //find company coupons by category

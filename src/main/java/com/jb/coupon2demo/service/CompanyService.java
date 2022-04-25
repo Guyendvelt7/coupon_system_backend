@@ -16,12 +16,13 @@ import java.time.LocalDate;
 import java.util.Set;
 
 @Service
-@RequiredArgsConstructor
-public class CompanyService {
-    private final CompanyRepo companyRepo;
-    private final CouponRepo couponRepo;
+public class CompanyService extends ClientService{
     private int companyId;
 
+    public CompanyService() {
+    }
+
+    @Override
     public boolean login(String email, String password) throws CustomExceptions {
         Integer id = companyRepo.findByEmailAndPassword(email, password).getId();
         if (id == null) {

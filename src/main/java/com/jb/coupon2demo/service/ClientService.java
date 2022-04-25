@@ -4,18 +4,15 @@ import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.repositories.CompanyRepo;
 import com.jb.coupon2demo.repositories.CouponRepo;
 import com.jb.coupon2demo.repositories.CustomerRepo;
-import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Component
-@RequiredArgsConstructor
 public abstract class ClientService {
-
+    @Autowired
     protected CompanyRepo companyRepo;
+    @Autowired
     protected CouponRepo couponRepo;
+    @Autowired
     protected CustomerRepo customerRepo;
 
-
-    abstract boolean login (String email, String password) throws CustomExceptions;
-
+    public abstract boolean login(String mail, String password)throws CustomExceptions;
 }

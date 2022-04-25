@@ -5,19 +5,16 @@ import com.jb.coupon2demo.beans.Coupon;
 import com.jb.coupon2demo.beans.Customer;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
-import com.jb.coupon2demo.repositories.CustomerRepo;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
 
 @Service
-@RequiredArgsConstructor
-public class CustomerService {
-    private final CustomerRepo customerRepo;
+public class CustomerService extends ClientService{
     private int customerId;
 
+    @Override
     public boolean login(String email, String password) throws CustomExceptions {
         Integer id = customerRepo.findByEmailAndPassword(email, password).getId();
         if (id == null) {

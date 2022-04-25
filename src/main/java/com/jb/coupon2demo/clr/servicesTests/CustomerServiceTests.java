@@ -1,7 +1,6 @@
 package com.jb.coupon2demo.clr.servicesTests;
 
 import com.jb.coupon2demo.beans.Category;
-import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Coupon;
 import com.jb.coupon2demo.beans.Customer;
 import com.jb.coupon2demo.repositories.CompanyRepo;
@@ -14,11 +13,9 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
-import java.sql.Date;
-import java.time.LocalDate;
 import java.util.Set;
 
-@Component
+//@Component
 @Order(8)
 @RequiredArgsConstructor
 public class CustomerServiceTests implements CommandLineRunner {
