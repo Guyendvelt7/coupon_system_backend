@@ -96,9 +96,5 @@ public class AdminService extends  ClientService{
             System.out.println("Customer deleted successfully");
         }
     }
-    @Scheduled(fixedRate = 5000)
-    public void deleteByDate(){
-        System.out.println("im start");
-        couponRepo.deleteCouponsByDate();
-    }
+
 }
