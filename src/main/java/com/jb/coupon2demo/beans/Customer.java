@@ -30,7 +30,7 @@ public class Customer {
     private String email;
     @Column(nullable = false, length = 11)
     private String password;
-    @ManyToMany( fetch = FetchType.LAZY, mappedBy = "customers", cascade = CascadeType.ALL)
+    @ManyToMany( fetch = FetchType.EAGER, mappedBy = "customers", cascade = CascadeType.ALL)
     @Fetch(value = FetchMode.JOIN)
     //@ToString.Exclude
     private Set<Coupon> coupons;

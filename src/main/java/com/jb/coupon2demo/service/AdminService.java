@@ -4,6 +4,7 @@ import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Customer;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;

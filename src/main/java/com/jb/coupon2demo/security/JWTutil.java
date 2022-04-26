@@ -19,53 +19,53 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class JWTutil {
 
-    //type of encryption
-    private String signatureAlgorithm = SignatureAlgorithm.HS256.getJcaName();
-    //secret key
-    private String secretKey = "this+is+my+key+and+i+cry+if+i+want+to+you+little+POS";
-    //private key
-    private Key decodedSecretKey = new SecretKeySpec
-            (Base64.getDecoder().decode(secretKey),this.signatureAlgorithm);
+        //type of encryption
+        private String signatureAlgorithm = SignatureAlgorithm.HS256.getJcaName();
+        //secret key
+        private String secretKey = "this+is+my+key+and+i+cry+if+i+want+to+you+little+POS";
+        //private key
+        private Key decodedSecretKey = new SecretKeySpec
+                (Base64.getDecoder().decode(secretKey),this.signatureAlgorithm);
 
-    //generate key
-    public String generateToken(UserDetails userDetails){
-        Map<String,Object> claims = new HashMap<>();
-        claims.put("userEmail",userDetails.getEmail());
-        //claims.put("userPassword",credentials.getUserPass());  -> you no good for me, i don't need to no body....
-        return "Bearer "+createToken(claims,userDetails.getClientType().toString());
+        //generate key
+        public String generateToken(UserDetails userDetails){
+            Map<String,Object> claims = new HashMap<>();
+            claims.put("userEmail",userDetails.getEmail());
+            //claims.put("userPassword",credentials.getUserPass());  -> you no good for me, i don't need to no body....
+            return "Bearer "+createToken(claims,userDetails.getClientType().toString());
+        }
+
+        private String createToken(Map<String, Object> claims, String userName) {
+            Instant now = Instant.now();
+            return Jwts.builder()
+                    .setClaims(claims)
+                    .setSubject(userName)
+                    .setIssuedAt(Date.from(now))
+                    .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+                    .signWith(decodedSecretKey)
+                    .compact();
+        }
+
+        private Claims extractAllClamis(String token) throws ExpiredJwtException, MalformedJwtException  {
+            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
+            return jwtParser.parseClaimsJws(token).getBody();
+        }
+
+        private String extractSignature(String token) throws ExpiredJwtException, MalformedJwtException  {
+            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
+            return jwtParser.parseClaimsJws(token).getSignature();
+        }
+
+        public String extractSubject(String token)  {
+            return extractAllClamis(token.replace("Bearer ","")).getSubject();
+        }
+
+        public String checkUser(String token) throws MalformedJwtException {
+            Claims claims = extractAllClamis(token.replace("Bearer ",""));
+            UserDetails userDetails = new UserDetails();
+            userDetails.setClientType(ClientType.valueOf(claims.getSubject()));
+            userDetails.setEmail((String)claims.get("userEmail"));
+            return generateToken(userDetails);
+        }
+
     }
-
-    private String createToken(Map<String, Object> claims, String userName) {
-        Instant now = Instant.now();
-        return Jwts.builder()
-                .setClaims(claims)
-                .setSubject(userName)
-                .setIssuedAt(Date.from(now))
-                .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
-                .signWith(decodedSecretKey)
-                .compact();
-    }
-
-    private Claims extractAllClaims(String token) throws ExpiredJwtException, MalformedJwtException  {
-        JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
-        return jwtParser.parseClaimsJws(token).getBody();
-    }
-
-    private String extractSignature(String token) throws ExpiredJwtException, MalformedJwtException  {
-        JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
-        return jwtParser.parseClaimsJws(token).getSignature();
-    }
-
-    public String extractSubject(String token)  {
-        return extractAllClaims(token.replace("Bearer ","")).getSubject();
-    }
-
-    public String checkUser(String token) throws MalformedJwtException {
-        Claims claims = extractAllClaims(token.replace("Bearer ",""));
-        UserDetails userDetails = new UserDetails();
-        userDetails.setClientType(ClientType.valueOf(claims.getSubject()));
-        userDetails.setEmail((String)claims.get("userEmail"));
-        return generateToken(userDetails);
-    }
-
-}

@@ -28,7 +28,7 @@ public class Company {
     private String email;
     @Column(nullable = false, length = 11)
     private String password;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "companyId", cascade = CascadeType.ALL)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "companyId", cascade = CascadeType.ALL)
     @JsonIgnore
     @ToString.Exclude
     private Set<Coupon> coupons;

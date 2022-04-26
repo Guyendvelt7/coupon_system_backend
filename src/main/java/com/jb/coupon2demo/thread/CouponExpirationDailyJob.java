@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 public class CouponExpirationDailyJob {
     @Autowired
     private CouponRepo couponRepo;
+
 //    @Autowired
 //    TaskScheduler task;
 //
@@ -35,3 +36,4 @@ public class CouponExpirationDailyJob {
         couponRepo.deleteCouponsByDate();
     }
 }
+
