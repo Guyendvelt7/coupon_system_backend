@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.Set;
 
-@Component
+//@Component
 @Order(4)
 @RequiredArgsConstructor
 public class CustomerRepoCrudeTest implements CommandLineRunner {

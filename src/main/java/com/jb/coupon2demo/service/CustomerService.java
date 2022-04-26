@@ -29,9 +29,15 @@ public class CustomerService extends ClientService{
         }
     }
 
-    public void purchaseCoupon(Coupon coupon) throws CustomExceptions {
+    public void purchaseCoupon(int couponId) throws CustomExceptions {
+        if (!couponRepo.existsById(couponId)){
+            throw new CustomExceptions(OptionalExceptionMessages.COUPON_NOT_FOUND);
+        }
+        Coupon coupon = couponRepo.findById(couponId).get();
         if(customerRepo.isCouponPurchased(customerId, coupon.getId()).isEmpty()){
             customerRepo.addCouponToCustomer(customerId, coupon.getId());
+            coupon.setAmount(coupon.getAmount()-1);
+            couponRepo.save(coupon);
             System.out.println("Coupon purchased.");
         }
         else{

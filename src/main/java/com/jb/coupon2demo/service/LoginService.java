@@ -1,28 +1,33 @@
-package com.jb.coupon2demo.login;
+package com.jb.coupon2demo.service;
 
 import com.jb.coupon2demo.beans.ClientType;
+import com.jb.coupon2demo.beans.UserDetails;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
+import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
+import com.jb.coupon2demo.security.JWTutil;
 import com.jb.coupon2demo.service.AdminService;
 import com.jb.coupon2demo.service.ClientService;
 import com.jb.coupon2demo.service.CompanyService;
 import com.jb.coupon2demo.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
-@Component
+@Service
 @RequiredArgsConstructor
-public class LoginManager {
+public class LoginService {
     private final AdminService adminService;
     private final CompanyService companyService;
     private final CustomerService customerService;
+    private final JWTutil jwTutil;
 
-    public ClientService login (String email, String password, ClientType clientType) throws CustomExceptions {
+    public String login (String email, String password, ClientType clientType) throws CustomExceptions {
         ClientService clientService = null;
         boolean isLogin = false;
         switch (clientType){
             case ADMIN:
                 clientService=adminService;
-                isLogin= clientService.login(email, password);
+                isLogin = clientService.login(email, password);
                 break;
             case COMPANY:
                 clientService = companyService;
@@ -34,9 +39,10 @@ public class LoginManager {
                 break;
         }
         if(!isLogin){
-            return null;
+            throw new CustomExceptions(OptionalExceptionMessages.LOGIN_EXCEPTION);
         }else{
-            return clientService;
+            UserDetails userDetails = new UserDetails(clientType,email,password);
+            return jwTutil.generateToken(userDetails);
         }
     }
 }

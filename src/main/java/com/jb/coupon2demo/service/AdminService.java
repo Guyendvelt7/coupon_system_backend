@@ -4,6 +4,7 @@ import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Customer;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -94,5 +95,10 @@ public class AdminService extends  ClientService{
             customerRepo.deleteById(customerId);
             System.out.println("Customer deleted successfully");
         }
+    }
+    @Scheduled(fixedRate = 5000)
+    public void deleteByDate(){
+        System.out.println("im start");
+        couponRepo.deleteCouponsByDate();
     }
 }
