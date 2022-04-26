@@ -17,7 +17,7 @@ import java.util.Set;
 
 @Service
 public class CompanyService extends ClientService{
-    private int companyId;
+    private int companyId = 0;
 
     public CompanyService() {
     }
@@ -39,6 +39,9 @@ public class CompanyService extends ClientService{
 
     //add coupon
     public void addCoupon(Coupon coupon) throws CustomExceptions {
+        if (companyId == 0){
+            throw new CustomExceptions(OptionalExceptionMessages.LOGIN_EXCEPTION);
+        }
         coupon.setCompanyId(companyId);
         validStartDate(coupon.getStartDate());
         validEndDate(coupon.getEndDate(), coupon);
