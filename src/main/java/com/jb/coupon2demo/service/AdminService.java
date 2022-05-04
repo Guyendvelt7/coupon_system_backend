@@ -49,7 +49,10 @@ public class AdminService extends  ClientService{
         System.out.println("Company deleted successfully");
     }
 
-    public List<Company> getAllCompanies() {
+    public List<Company> getAllCompanies() throws CustomExceptions {
+        if(companyRepo.findAll().isEmpty()){
+            throw new CustomExceptions(OptionalExceptionMessages.EMPTY_LIST);
+        }
         return companyRepo.findAll();
     }
 
