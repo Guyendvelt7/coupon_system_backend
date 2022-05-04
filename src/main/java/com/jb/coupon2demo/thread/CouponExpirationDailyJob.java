@@ -30,7 +30,8 @@ public class CouponExpirationDailyJob {
 //        }, 86400000);
 //    }
 
-    @Scheduled(fixedRate = 86_400_000)
+    @Scheduled(cron = "0 0 2 * * ?")
+    //@Scheduled(fixedRate = 86_400_000)
     public void deleteByDate(){
         System.out.println("im start");
         couponRepo.deleteCouponsByDate();
