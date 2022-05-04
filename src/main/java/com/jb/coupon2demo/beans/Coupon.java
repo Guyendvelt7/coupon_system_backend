@@ -22,7 +22,6 @@ import java.util.Set;
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @JsonIgnore
     private  int id;
     private int companyId;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

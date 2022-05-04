@@ -29,7 +29,6 @@ public class Company {
     @Column(nullable = false, length = 11)
     private String password;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "companyId", cascade = CascadeType.ALL)
-    @JsonIgnore
     @ToString.Exclude
     private Set<Coupon> coupons;
 

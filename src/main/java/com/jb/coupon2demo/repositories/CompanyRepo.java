@@ -19,13 +19,10 @@ public interface CompanyRepo extends JpaRepository<Company, Integer> {
     boolean existsByEmail(String email);
     boolean existsByName(String name);
 
-//    @Query("SELECT CASE WHEN COUNT(c) > 0 THEN 'true' ELSE 'false' END FROM Company c WHERE c.name = ?1 Or c.email = ?2")
-//    public Boolean existsByNameOrEmail(String name, String email);
-
-    @Transactional
-    @Modifying
-    @Query(value = "DELETE FROM customer_vs_coupons WHERE coupon_id = ?1", nativeQuery = true)
-    void deleteCoupon(int coupon_id);
+//    @Transactional
+//    @Modifying
+//    @Query(value = "DELETE FROM customer_vs_coupons WHERE coupon_id = ?1", nativeQuery = true)
+//    void deleteCoupon(int coupon_id);
 
     @Query(value = "select c from Coupon c where companyId = ?1")
     Set<Coupon> findCompanyCoupons(int companyId);

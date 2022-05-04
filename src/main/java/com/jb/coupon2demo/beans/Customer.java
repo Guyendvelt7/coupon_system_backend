@@ -39,7 +39,4 @@ public class Customer {
         this.id = id;
     }
 
-    public Set<Coupon> getCoupons() {
-        return coupons;
-    }
 }
