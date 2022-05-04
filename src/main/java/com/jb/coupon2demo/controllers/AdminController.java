@@ -1,6 +1,5 @@
 package com.jb.coupon2demo.controllers;
 
-import com.google.common.base.FinalizablePhantomReference;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.security.JWTutil;
 import com.jb.coupon2demo.service.AdminService;

@@ -21,7 +21,7 @@ import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 
-@Component
+//@Component
 @RequiredArgsConstructor
 @Order(1)
 public class DbBuilderTests implements CommandLineRunner {

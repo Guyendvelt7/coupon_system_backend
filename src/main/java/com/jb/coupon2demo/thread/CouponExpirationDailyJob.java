@@ -13,7 +13,7 @@ public class CouponExpirationDailyJob {
     @Autowired
     private CouponRepo couponRepo;
 
-    @Scheduled(fixedRate = 86_400_000)
+    @Scheduled(cron = " 0 0 2 * * ?")
     public void deleteByDate(){
         System.out.println("im start");
         couponRepo.deleteCouponsByDate();

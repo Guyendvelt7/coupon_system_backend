@@ -15,7 +15,9 @@ public enum OptionalExceptionMessages {
     LOGIN_EXCEPTION("Invalid user type"),
     TOKEN_EXCEPTION("Invalid authorization password"),
     START_DATE_EXCEPTION("Invalid start date"),
-    END_DATE_EXCEPTION("Invalid end date, it must be older than the start date.");
+    END_DATE_EXCEPTION("Invalid end date, it must be older than the start date."),
+    NO_DATA("no data found in data base"),
+    CANT_CHANGE_COMPANY_ID("can not change company id!!");
 
     private String message;
 

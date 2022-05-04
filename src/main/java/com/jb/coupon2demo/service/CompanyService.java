@@ -5,11 +5,6 @@ import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Coupon;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
-import com.jb.coupon2demo.repositories.CompanyRepo;
-import com.jb.coupon2demo.repositories.CouponRepo;
-import lombok.AllArgsConstructor;
-import lombok.RequiredArgsConstructor;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.sql.Date;
@@ -59,7 +54,11 @@ public class CompanyService extends ClientService{
         if (couponRepo.findById(coupon.getId()).isEmpty()) {
             throw new CustomExceptions(OptionalExceptionMessages.COUPON_NOT_FOUND);
         }
+        if (coupon.getCompanyId()!=this.companyId){
+            throw new CustomExceptions(OptionalExceptionMessages.CANT_CHANGE_COMPANY_ID);
+        }
         validEndDate(coupon.getEndDate(), coupon);
+        coupon.setCompanyId(this.companyId);
         couponRepo.save(coupon);
         System.out.println("Coupon updated successfully");
     }
@@ -74,8 +73,18 @@ public class CompanyService extends ClientService{
     }
 
     //get company coupons
-    public Set<Coupon> getAllCompanyCoupons() {
-        return companyRepo.findCompanyCoupons(companyId);
+    public Set<Coupon> getAllCompanyCoupons() throws CustomExceptions {
+        if (companyRepo.findCompanyCoupons(companyId).isEmpty()){
+            throw new CustomExceptions(OptionalExceptionMessages.NO_DATA);
+        }else {
+            return companyRepo.findCompanyCoupons(companyId);
+        }
+    }
+    public Coupon getOneCoupon(int couponId) throws CustomExceptions {
+        if (couponRepo.findById(couponId).isEmpty()) {
+            throw new CustomExceptions(OptionalExceptionMessages.COUPON_NOT_FOUND);
+        }
+        return couponRepo.findById(couponId).get();
     }
 
     //get company coupons by category

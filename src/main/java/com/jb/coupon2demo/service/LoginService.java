@@ -5,12 +5,7 @@ import com.jb.coupon2demo.beans.UserDetails;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
 import com.jb.coupon2demo.exceptions.OptionalExceptionMessages;
 import com.jb.coupon2demo.security.JWTutil;
-import com.jb.coupon2demo.service.AdminService;
-import com.jb.coupon2demo.service.ClientService;
-import com.jb.coupon2demo.service.CompanyService;
-import com.jb.coupon2demo.service.CustomerService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 @Service
