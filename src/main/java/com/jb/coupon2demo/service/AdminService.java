@@ -53,7 +53,7 @@ public class AdminService extends  ClientService{
         if(companyRepo.findAll().isEmpty()){
             throw new CustomExceptions(OptionalExceptionMessages.EMPTY_LIST);
         }
-         return companyRepo.findAll();
+        return companyRepo.findAll();
     }
 
     public Company getOneCompany(int companyId) throws CustomExceptions {

@@ -3,7 +3,6 @@ package com.jb.coupon2demo.controllers;
 import com.jb.coupon2demo.beans.Category;
 import com.jb.coupon2demo.beans.Coupon;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
-
 import com.jb.coupon2demo.security.JWTutil;
 import com.jb.coupon2demo.service.CompanyService;
 import lombok.RequiredArgsConstructor;

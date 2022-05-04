@@ -22,7 +22,7 @@ public class JWTutil {
         //type of encryption
         private String signatureAlgorithm = SignatureAlgorithm.HS256.getJcaName();
         //secret key
-        private String secretKey = "this+is+my+key+and+i+cry+if+i+want+to+you+little+POS";
+        private String secretKey = "this+is+geri+niv+guy+yoav+best+coupon+project+evevrrrrr";
         //private key
         private Key decodedSecretKey = new SecretKeySpec
                 (Base64.getDecoder().decode(secretKey),this.signatureAlgorithm);

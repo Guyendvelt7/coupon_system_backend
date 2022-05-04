@@ -1,6 +1,5 @@
 package com.jb.coupon2demo.controllers;
 
-import com.google.common.base.FinalizablePhantomReference;
 import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Customer;
 import com.jb.coupon2demo.exceptions.CustomExceptions;
@@ -45,18 +44,18 @@ public class AdminController {
     public ResponseEntity<?> getAllCompanies (@RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token);
         return ResponseEntity.ok()
-                        .header("Authorization", newToken)
-                        .body(adminService.getAllCompanies()
-                        );
+                .header("Authorization", newToken)
+                .body(adminService.getAllCompanies()
+                );
     }
 
     @GetMapping("/oneCompany/{id}")
     public ResponseEntity<?> getOneCompany (@PathVariable int id, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token);
         return ResponseEntity.ok()
-                        .header("Authorization", newToken)
-                        .body(adminService.getOneCompany(id)
-                        );
+                .header("Authorization", newToken)
+                .body(adminService.getOneCompany(id)
+                );
     }
 
     @PostMapping("/addCustomer")
@@ -79,7 +78,7 @@ public class AdminController {
         return ResponseEntity.ok()
                 .header("Authorization", newToken)
                 .body(adminService.getOneCustomer(id)
-        );
+                );
     }
 
     @GetMapping("/allCustomers")
@@ -97,5 +96,4 @@ public class AdminController {
         adminService.deleteCustomer(id);
         return new ResponseEntity<>(newToken, HttpStatus.OK);
     }
-
 }
