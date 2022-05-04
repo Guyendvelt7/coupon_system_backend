@@ -75,16 +75,10 @@ public class CompanyService extends ClientService{
     //get company coupons
     public Set<Coupon> getAllCompanyCoupons() throws CustomExceptions {
         if (companyRepo.findCompanyCoupons(companyId).isEmpty()){
-            throw new CustomExceptions(OptionalExceptionMessages.NO_DATA);
+            throw new CustomExceptions(OptionalExceptionMessages.EMPTY_LIST);
         }else {
             return companyRepo.findCompanyCoupons(companyId);
         }
-    }
-    public Coupon getOneCoupon(int couponId) throws CustomExceptions {
-        if (couponRepo.findById(couponId).isEmpty()) {
-            throw new CustomExceptions(OptionalExceptionMessages.COUPON_NOT_FOUND);
-        }
-        return couponRepo.findById(couponId).get();
     }
 
     //get one coupon
