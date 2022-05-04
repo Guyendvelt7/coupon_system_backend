@@ -13,7 +13,25 @@ public class CouponExpirationDailyJob {
     @Autowired
     private CouponRepo couponRepo;
 
-    @Scheduled(cron = " 0 0 2 * * ?")
+//    @Autowired
+//    TaskScheduler task;
+//
+//    public void scheduledJob(){
+//        task.scheduleWithFixedDelay(new Runnable() {
+//            @Override
+//            public void run() {
+//                try{
+//                    couponRepo.deleteCouponsByDate();
+//                }catch (Exception err){
+//                    System.out.println(err.getMessage());
+//                    System.exit(1);
+//                }
+//            }
+//        }, 86400000);
+//    }
+
+    @Scheduled(cron = "0 0 2 * * ?")
+    //@Scheduled(fixedRate = 86_400_000)
     public void deleteByDate(){
         System.out.println("im start");
         couponRepo.deleteCouponsByDate();
