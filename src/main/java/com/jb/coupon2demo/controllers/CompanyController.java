@@ -44,6 +44,7 @@ public class CompanyController {
                 .header("Authorization",newToken)
                 .body(companyService.getAllCompanyCoupons());
     }
+
     @GetMapping("/getOneCoupon/{couponId}")
     public ResponseEntity<?> getOneCoupon(@PathVariable int couponId, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token);
