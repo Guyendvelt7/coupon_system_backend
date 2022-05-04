@@ -22,7 +22,7 @@ public class LoginService {
         switch (clientType){
             case ADMIN:
                 clientService=adminService;
-                isLogin = clientService.login(email, password);
+                isLogin= clientService.login(email, password);
                 break;
             case COMPANY:
                 clientService = companyService;
