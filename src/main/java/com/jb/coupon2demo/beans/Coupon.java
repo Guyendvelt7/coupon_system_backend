@@ -1,15 +1,15 @@
 package com.jb.coupon2demo.beans;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.sql.Date;
-import java.util.List;
 import java.util.Set;
+
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
 @Entity
 @Getter
@@ -19,11 +19,19 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "coupons")
+/**
+ * this class defines the required information for the creation of a new coupon.
+ */
 public class Coupon {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private  int id;
     private int companyId;
+    /**
+     * @annotations:
+     * ManyToMany is to define the relationship between the coupons and the customers.
+     * Many coupons may be purchased by many customers
+     */
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "customer_vs_coupons", joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))
     @ToString.Exclude

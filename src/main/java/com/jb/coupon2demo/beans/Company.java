@@ -2,12 +2,13 @@ package com.jb.coupon2demo.beans;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.*;
-import org.hibernate.annotations.Fetch;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
+
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
 @Entity
 @Getter
@@ -17,6 +18,9 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Table(name = "companies")
+/**
+ *
+ */
 public class Company {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +36,9 @@ public class Company {
     @ToString.Exclude
     private Set<Coupon> coupons;
 
+    /**
+     *
+     */
     private void setId(int id) {
         this.id = id;
     }
