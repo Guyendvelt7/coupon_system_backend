@@ -12,12 +12,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
 import java.util.Set;
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
 //@Component
 @Order(8)
 @RequiredArgsConstructor
+/**
+ * this class is used for the implementation and testing of all customer service(client side) methods and Hibernate queries
+ * implements CommandLineRunner to indicate that a bean(Entity) should run when SpringApplication is initialized
+ */
 public class CustomerServiceTests implements CommandLineRunner {
 private final CustomerService customerService;
 private final CustomerRepo customerRepo;

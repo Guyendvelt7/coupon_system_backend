@@ -9,12 +9,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
 import java.util.Set;
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
-@Component
+//@Component
 @Order(2)
 @RequiredArgsConstructor
+/**
+ * this class is used for the implementation and testing of all company methods and Hibernate queries
+ * implements CommandLineRunner to indicate that a bean(Entity) should run when SpringApplication is initialized
+ */
 public class CompanyRepoCrudTest implements CommandLineRunner {
     private final CompanyRepo companyRepo;
     private final CouponRepo couponRepo;

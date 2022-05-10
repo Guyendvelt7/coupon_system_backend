@@ -10,10 +10,19 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
 //@Component
 @Order(5)
 @RequiredArgsConstructor
+/**
+ * this class is used for the implementation and testing of all admin service(administrator)(client side) methods and Hibernate queries
+ * Admin is one of the 3 clients in this Coupon management system
+ * implements CommandLineRunner to indicate that a bean(Entity) should run when SpringApplication is initialized
+ */
 public class AdminTests implements CommandLineRunner {
     private final AdminService adminService;
     private final CompanyRepo companyRepo;

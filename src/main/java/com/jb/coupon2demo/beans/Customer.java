@@ -22,7 +22,7 @@ import java.util.Set;
 @Table(name = "customers")
 /**
  * this class defines the required information for the creation of a new customer.
- * customer is one of the 3 clients in this Coupon management system
+ * Customer is one of the 3 clients in this Coupon management system
  */
 public class Customer {
     @Id

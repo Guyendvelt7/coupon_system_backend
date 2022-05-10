@@ -1,5 +1,12 @@
 package com.jb.coupon2demo.exceptions;
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
+/**
+ * list of possible reasons to a server side exception
+ */
 public enum OptionalExceptionMessages {
     CANT_PURCHASE_COUPON("cant purchase this coupon!"),
     CANT_ADD_COUPON("can't add this coupon!"),

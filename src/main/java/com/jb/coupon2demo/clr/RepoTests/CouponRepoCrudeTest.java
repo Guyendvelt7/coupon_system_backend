@@ -9,14 +9,21 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
 //@Component
 @Order(3)
 @RequiredArgsConstructor
+/**
+ * this class is used for the implementation and testing of all coupon methods and Hibernate queries
+ * implements CommandLineRunner to indicate that a bean(Entity) should run when SpringApplication is initialized
+ */
 public class CouponRepoCrudeTest implements CommandLineRunner {
     private final CompanyRepo companyRepo;
     private final CouponRepo couponRepo;

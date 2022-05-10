@@ -19,6 +19,7 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
     Customer findByEmailAndPassword(String email,String password);
     Customer findByEmail (String email);
 
+
     @Transactional
     @Modifying
     @Query(value = "INSERT INTO `customer_vs_coupons` (customer_id, coupon_id) VALUES (?,?)", nativeQuery = true)

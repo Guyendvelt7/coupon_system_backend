@@ -30,6 +30,7 @@ public class CouponExpirationDailyJob {
 //        }, 86400000);
 //    }
 
+    //TODO: SINGLETON
     @Scheduled(cron = "0 0 2 * * ?")
     //@Scheduled(fixedRate = 86_400_000)
     public void deleteByDate(){

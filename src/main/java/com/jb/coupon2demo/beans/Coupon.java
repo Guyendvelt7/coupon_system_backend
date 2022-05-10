@@ -32,7 +32,11 @@ public class Coupon {
      * ManyToMany is to define the relationship between the coupons and the customers.
      * Many coupons may be purchased by many customers
      *
-     *
+     *@joinTable creates a new table in database combining two tables
+     * @JoinColumn defines which specified parameters to use in the creation of the new table
+     * related to this entity itself(coupon id)
+     * @InverseJoinColumn defines witch parameter to use related to the associated entity(customer id)
+     * this two annotations above creates Hibernate bidirectional mapping
      */
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "customer_vs_coupons", joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))
@@ -55,7 +59,9 @@ public class Coupon {
     @Column(nullable = false)
     private double price;
     private String image;
-
+    /**
+     * this method is defined private to prevent from clients to modify this field
+     */
     private void setId(int id) {
         this.id = id;
     }

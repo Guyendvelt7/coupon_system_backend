@@ -7,13 +7,31 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+/**
+ * @author Yoav Hacmon, Guy Endvelt, Niv Pablo and Gery Glazer
+ * 05.2022
+ */
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/GYGNcoupons")
+/**
+ * this class is responsible for the implementation of the login method with API's
+ * {@link LoginService#login(String, String, ClientType)}
+ */
 public class LoginController {
     private final LoginService loginService;
 
+    /**
+     * this HTTP request method is for sending information from the client to the server in a secured way
+     * the input is not saved in browser history, can't be booked marked or cached
+     * @param email client email
+     * @param pass client password
+     * @param clientType Administrator, company or customer
+     * @return a response to the client accepting the request and also produces a security key (token)
+     * see {@link com.jb.coupon2demo.security.JWTutil} for further explanation
+     * @throws CustomExceptions in case there is an error produced by wrong data entered by the client
+     */
     @PostMapping("/login/{email}/{pass}/{clientType}")
     public ResponseEntity<?> login(@PathVariable String email, @PathVariable String pass, @RequestBody ClientType clientType) throws CustomExceptions {
         return new ResponseEntity<>(loginService.login(email,pass,clientType),HttpStatus.ACCEPTED);
