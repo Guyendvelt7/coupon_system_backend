@@ -31,6 +31,8 @@ public class Coupon {
      * @annotations:
      * ManyToMany is to define the relationship between the coupons and the customers.
      * Many coupons may be purchased by many customers
+     *
+     *
      */
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinTable(name = "customer_vs_coupons", joinColumns = @JoinColumn(name = "coupon_id"), inverseJoinColumns = @JoinColumn(name = "customer_id"))

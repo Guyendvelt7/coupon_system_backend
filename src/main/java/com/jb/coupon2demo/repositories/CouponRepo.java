@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 public interface CouponRepo extends JpaRepository<Coupon, Integer> {
+    //todo check if necessary, not in use
     Coupon findByTitleAndCompanyId(String title, int companyID);
     Boolean existsByTitleAndCompanyId(String title, int companyID);
 

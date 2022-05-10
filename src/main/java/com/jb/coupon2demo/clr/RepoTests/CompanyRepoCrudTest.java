@@ -4,6 +4,7 @@ import com.jb.coupon2demo.beans.Category;
 import com.jb.coupon2demo.beans.Company;
 import com.jb.coupon2demo.beans.Coupon;
 import com.jb.coupon2demo.repositories.CompanyRepo;
+import com.jb.coupon2demo.repositories.CouponRepo;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -11,11 +12,12 @@ import org.springframework.stereotype.Component;
 
 import java.util.Set;
 
-//@Component
+@Component
 @Order(2)
 @RequiredArgsConstructor
 public class CompanyRepoCrudTest implements CommandLineRunner {
     private final CompanyRepo companyRepo;
+    private final CouponRepo couponRepo;
 
     @Override
     public void run(String... args) throws Exception {
@@ -66,9 +68,8 @@ public class CompanyRepoCrudTest implements CommandLineRunner {
             System.out.println("7 - No coupons for this company found");
         }
       //find one company`s coupon
-        Coupon coupon = companyRepo.findOneCompanyCoupon(company.getId(), "6people");
+        Coupon coupon = couponRepo.findByTitleAndCompanyId("6people" , company.getId());
         System.out.println(coupon);
-
         //find company coupons by category
         companyCoupons = companyRepo.findCompanyCouponsByCategory(Category.ELECTRIC_APPLIANCE, company.getId());
         if (!companyCoupons.isEmpty()) {
@@ -86,5 +87,4 @@ public class CompanyRepoCrudTest implements CommandLineRunner {
             System.out.println("9 - No coupons for this company found");
         }
     }
-
 }

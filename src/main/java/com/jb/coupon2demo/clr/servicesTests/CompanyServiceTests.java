@@ -36,7 +36,7 @@ public class CompanyServiceTests implements CommandLineRunner {
                 Date.valueOf(LocalDate.now()), Date.valueOf(LocalDate.now().plusDays(30)), 2000, 50, ""));
 
         //update coupon
-        Coupon coupon = companyRepo.findOneCompanyCoupon(company.getId(), "4ktv");
+        Coupon coupon =  couponRepo.findByTitleAndCompanyId("4ktv" , company.getId());
         coupon.setAmount(1500);
         companyService.updateCoupon(coupon);
         //delete coupon

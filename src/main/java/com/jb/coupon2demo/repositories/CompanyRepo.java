@@ -27,9 +27,6 @@ public interface CompanyRepo extends JpaRepository<Company, Integer> {
     @Query(value = "select c from Coupon c where companyId = ?1")
     Set<Coupon> findCompanyCoupons(int companyId);
 
-    @Query(value = "SELECT c from Coupon c where companyId = ?1 AND title=?2")
-    Coupon findOneCompanyCoupon (int companyId, String title);
-
     @Query(value = "select c from Coupon c where category = ?1 AND companyId =?2")
     Set<Coupon> findCompanyCouponsByCategory(Category category, int companyId);
 
