@@ -92,7 +92,6 @@ public class DbBuilderTests implements CommandLineRunner {
                 .password("654321")
                 .build();
         customerRepo.saveAll(List.of(cmr1, cmr2));
-        System.out.println(companyRepo.findCompanyCoupons(1));
         couponExpirationDailyJob.deleteByDate();
     }
 }
