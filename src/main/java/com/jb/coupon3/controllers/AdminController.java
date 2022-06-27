@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/GYGNcoupons/admin")
 /**
  * this class is used for the administrator API's methods implementation
@@ -25,24 +25,6 @@ import org.springframework.web.bind.annotation.*;
 public class AdminController {
     private final JWTutil jwTutil;
     private final AdminService adminService;
-
-    /**
-     * this method is for adding a new company in to the database
-     * @param company new company information
-     * @param token is for security, this string is given by the server when login in.
-     *              for further information about token please see {@link JWTutil}
-     * @return new token for more admin actions and request status response
-     * @throws CustomExceptions in case the server found a company with similar data
-     */
-    //todo: check if @CrossOrigin is necessary in every controller
-    @PostMapping("/addCompany")
-    public ResponseEntity<?> addCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
-        String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
-        adminService.addCompany (company);
-        return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("company " + company.getName() + " added");
-    }
 
     /**
      * this method is for updating a company information
@@ -111,23 +93,6 @@ public class AdminController {
                 .header("Authorization", newToken)
                 .body(adminService.getOneCompany(id)
                 );
-    }
-
-    /**
-     * this method is for adding a new customer in to the database
-     * @param customer new customer information
-     * @param token is for security, this string is given by the server when login in.
-     *              for further information about token please see {@link JWTutil}
-     * @return new token for more admin actions and request status response
-     * @throws CustomExceptions in case the server found a customer with similar data
-     */
-    @PostMapping("/addCustomer")
-    public ResponseEntity<?> addCustomer (@RequestBody Customer customer, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
-        String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
-        adminService.addCustomer(customer);
-        return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " added");
     }
 
     /**

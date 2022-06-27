@@ -22,7 +22,7 @@ public interface CustomerRepo extends JpaRepository<Customer, Integer> {
 
     @Transactional
     @Modifying
-    @Query(value = "INSERT INTO `customer_vs_coupons` (customer_id, coupon_id) VALUES (?,?)", nativeQuery = true)
+    @Query(value = "INSERT INTO customer_vs_coupons (customer_id, coupon_id) VALUES (?,?)", nativeQuery = true)
     void addCouponToCustomer(int customer_id, int coupon_id);
 
     @Query(value = "SELECT * FROM customer_vs_coupons WHERE customer_id =? and coupon_id=?", nativeQuery = true)

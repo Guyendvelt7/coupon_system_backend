@@ -6,6 +6,7 @@ import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.repositories.CompanyRepo;
 import com.jb.coupon3.repositories.CustomerRepo;
 import com.jb.coupon3.service.AdminService;
+import com.jb.coupon3.service.GuestService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.core.annotation.Order;
@@ -27,6 +28,7 @@ public class AdminTests implements CommandLineRunner {
     private final AdminService adminService;
     private final CompanyRepo companyRepo;
     private final CustomerRepo customerRepo;
+    private final GuestService guestService;
 
 
     @Override
@@ -34,7 +36,7 @@ public class AdminTests implements CommandLineRunner {
         //Admin login
         adminService.login("admin@admin.com", "admin");
         //add new company
-        adminService.addCompany(new Company(0, "oneplus", "aone@plusone.com", "1+1", null));
+        guestService.addCompany(new Company(0, "oneplus", "aone@plusone.com", "1+1", null));
         //update company
         //get one company test
         try {
@@ -51,7 +53,7 @@ public class AdminTests implements CommandLineRunner {
         adminService.deleteCompany(adminService.getOneCompany(companyRepo.findByName("oneplus").getId()).getId());
         //
         //add customer
-        adminService.addCustomer(new Customer(
+        guestService.addCustomer(new Customer(
                 0, "guy", "endvelt", "guy@gmail.com", "guyguy", null));
 
         //update customer
