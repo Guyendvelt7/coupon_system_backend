@@ -2,6 +2,8 @@ package com.jb.coupon3.controllers;
 
 import com.jb.coupon3.beans.Category;
 import com.jb.coupon3.beans.ClientType;
+import com.jb.coupon3.beans.Company;
+import com.jb.coupon3.beans.Customer;
 import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.security.JWTutil;
 import com.jb.coupon3.service.CustomerService;
@@ -54,6 +56,19 @@ public class CustomerController {
         return ResponseEntity.ok()
                 .header("Authorization",newToken)
                 .body(customerService.getAllCustomerCoupons());
+    }
+
+
+
+    //add java docs
+    @PutMapping("/updateCustomer")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateCompany (@RequestBody Customer customer, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
+        String newToken = jwTutil.checkUser(token, ClientType.CUSTOMER);
+        customerService.updateCustomer(customer);
+        return ResponseEntity.ok()
+                .header("Authorization", token)
+                .body("customer " + customer.getFirstName() + " updated");
     }
 
     /**

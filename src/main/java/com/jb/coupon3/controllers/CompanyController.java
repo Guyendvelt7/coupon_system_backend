@@ -2,6 +2,7 @@ package com.jb.coupon3.controllers;
 
 import com.jb.coupon3.beans.Category;
 import com.jb.coupon3.beans.ClientType;
+import com.jb.coupon3.beans.Company;
 import com.jb.coupon3.beans.Coupon;
 import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.security.JWTutil;
@@ -26,6 +27,22 @@ public class CompanyController {
     private final CompanyService companyService;
     private final JWTutil jwTutil;
 
+    //add java docs
+    @PutMapping("/updateCompany")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
+        String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
+        companyService.updateCompany(company);
+        return ResponseEntity.ok()
+                .header("Authorization", token)
+                .body("company " + company.getName() + " updated");
+    }
+
+
+
+
+
+
     /**
      * this method is for adding a new coupon in to the database
      * @param coupon insertion of the new coupon information
@@ -44,6 +61,7 @@ public class CompanyController {
                 .header("Authorization", token)
                 .body("coupon " + coupon.getTitle() + " added");
     }
+
 
     /**
      *this method is for updating coupon information in to the database

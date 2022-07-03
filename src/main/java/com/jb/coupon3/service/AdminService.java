@@ -24,14 +24,6 @@ public class AdminService extends  ClientService{
         throw new CustomExceptions(OptionalExceptionMessages.LOGIN_EXCEPTION);
     }
 
-    public void addCompany(Company company) throws CustomExceptions {
-        if (companyRepo.existsByName(company.getName()) || companyRepo.existsByEmail(company.getEmail())) {
-            throw new CustomExceptions(OptionalExceptionMessages.EMAIL_OR_NAME_EXISTS);
-        }
-        companyRepo.save(company);
-        System.out.println("Company added successfully");
-    }
-
     public void updateCompany(Company company) throws CustomExceptions {
         if(!companyRepo.existsById(company.getId())) {
             throw new CustomExceptions(OptionalExceptionMessages.COMPANY_NOT_FOUND);
@@ -65,13 +57,6 @@ public class AdminService extends  ClientService{
         return companyRepo.findById(companyId).get();
     }
 
-    public void addCustomer(Customer customer) throws CustomExceptions {
-        if (customerRepo.existsByEmail(customer.getEmail())) {
-            throw new CustomExceptions(OptionalExceptionMessages.EMAIL_EXISTS);
-        }
-        customerRepo.save(customer);
-        System.out.println("Customer added successfully");
-    }
 
     public void updateCustomer(Customer customer) throws CustomExceptions {
         if (!customerRepo.existsById(customer.getId())) {
