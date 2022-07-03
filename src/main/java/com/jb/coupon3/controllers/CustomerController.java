@@ -2,8 +2,10 @@ package com.jb.coupon3.controllers;
 
 import com.jb.coupon3.beans.Category;
 import com.jb.coupon3.beans.ClientType;
+import com.jb.coupon3.beans.Customer;
 import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.security.JWTutil;
+import com.jb.coupon3.service.AdminService;
 import com.jb.coupon3.service.CustomerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,25 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
     private final JWTutil jwTutil;
     private final CustomerService customerService;
+    private final AdminService adminService;
+
+    /**
+     * this method is for updating a customer information
+     * @param customer to identify the customer to update
+     * @param token is for security, this string is given by the server when login in.
+     *              for further information about token please see {@link JWTutil}
+     * @return new token for more admin actions and request status response
+     * @throws CustomExceptions if the customer to update is not found in database
+     */
+    @PutMapping("/updateCustomer")
+    public ResponseEntity<?> updateCustomer (@RequestBody Customer customer, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
+        String newToken = jwTutil.checkUser(token, ClientType.CUSTOMER);
+        adminService.updateCustomer(customer);
+        return ResponseEntity.ok()
+                .header("Authorization", token)
+                .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " updated");
+    }
+
 
     /**
      * this HTTP method is for sending to the server that a coupon has been purchased by a customer
