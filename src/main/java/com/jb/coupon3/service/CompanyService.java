@@ -124,13 +124,13 @@ public class CompanyService extends ClientService{
     }
 
     //get company details
-    public String getCompanyDetails() throws CustomExceptions {
+    public Company getCompanyDetails() throws CustomExceptions {
         Company company = companyRepo.findById(companyId).get();
         company.setCoupons(getAllCompanyCoupons());
         if (company == null) {
             throw new CustomExceptions(OptionalExceptionMessages.COMPANY_NOT_FOUND);
         }
-        return company.toString() + company.getCoupons();
+        return company;
     }
 
     //Start date validation

@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/GYGNcoupons/company")
 /**
  * this class is used for the company API's methods implementation
@@ -31,7 +31,7 @@ public class CompanyController {
     @PutMapping("/updateCompany")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
-        String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
+        String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.updateCompany(company);
         return ResponseEntity.ok()
                 .header("Authorization", token)
