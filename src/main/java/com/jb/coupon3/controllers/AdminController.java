@@ -44,6 +44,7 @@ public class AdminController {
                 .body("company " + company.getName() + " updated");
     }
 
+
     /**
      * this method is for deleting a company from the database
      * @param companyId to identify the company to delete
