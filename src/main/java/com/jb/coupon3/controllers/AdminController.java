@@ -36,7 +36,6 @@ public class AdminController {
      * @throws CustomExceptions if the field to update is the company's name
      */
     @PutMapping("/updateCompany")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.updateCompany(company);

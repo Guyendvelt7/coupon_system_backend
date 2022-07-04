@@ -8,5 +8,6 @@ package com.jb.coupon3.beans;
 public enum ClientType {
     COMPANY,
     CUSTOMER,
-    ADMIN
+    ADMIN,
+    GUEST
 }

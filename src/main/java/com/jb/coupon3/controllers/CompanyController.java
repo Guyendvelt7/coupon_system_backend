@@ -6,6 +6,7 @@ import com.jb.coupon3.beans.Company;
 import com.jb.coupon3.beans.Coupon;
 import com.jb.coupon3.exceptions.CustomExceptions;
 import com.jb.coupon3.security.JWTutil;
+import com.jb.coupon3.service.AdminService;
 import com.jb.coupon3.service.CompanyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,7 @@ import org.springframework.web.bind.annotation.*;
  */
 public class CompanyController {
     private final CompanyService companyService;
+    private final AdminService adminService;
     private final JWTutil jwTutil;
 
     //add java docs
@@ -42,6 +44,23 @@ public class CompanyController {
 
 
 
+
+    /**
+     * this method is for updating a company information
+     * @param company to identify the company to update
+     * @param token is for security, this string is given by the server when login in.
+     *              for further information about token please see {@link JWTutil}
+     * @return new token for more admin actions and request status response
+     * @throws CustomExceptions if the field to update is the company's name
+     */
+    @PutMapping("/updateCompany")
+    public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
+        String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
+        adminService.updateCompany(company);
+        return ResponseEntity.ok()
+                .header("Authorization", token)
+                .body("company " + company.getName() + " updated");
+    }
 
     /**
      * this method is for adding a new coupon in to the database

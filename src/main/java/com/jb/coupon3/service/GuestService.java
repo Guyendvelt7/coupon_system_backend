@@ -28,7 +28,7 @@ public class GuestService {
     public GuestService() {
     }
 
-    public List<Coupon> getAllCoupons() throws CustomExceptions {
+   public List<Coupon> getAllCoupons() throws CustomExceptions {
         if(couponRepo.findAll().isEmpty()){
             throw new CustomExceptions(OptionalExceptionMessages.EMPTY_LIST);
         }
