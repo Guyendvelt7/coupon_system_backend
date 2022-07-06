@@ -36,7 +36,7 @@ public class LoginController {
     public ResponseEntity<?> login(@RequestBody UserDetails userDetails) throws CustomExceptions {
         String token = loginService.login(userDetails.getEmail(), userDetails.getPass(), userDetails.getClientType());
         return ResponseEntity.ok()
-                .header("Authorization", token )
+                .header("Authorization", token)
                 .body(userDetails.getClientType() + " connected");
     }
 }

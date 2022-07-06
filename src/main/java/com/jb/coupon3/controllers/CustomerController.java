@@ -62,13 +62,12 @@ public class CustomerController {
 
     //add java docs
     @PutMapping("/updateCustomer")
-    @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> updateCompany (@RequestBody Customer customer, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
         String newToken = jwTutil.checkUser(token, ClientType.CUSTOMER);
         customerService.updateCustomer(customer);
         return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("customer " + customer.getFirstName() + " updated");
+                .header("Authorization", newToken)
+                .body(customer);
     }
 
     /**

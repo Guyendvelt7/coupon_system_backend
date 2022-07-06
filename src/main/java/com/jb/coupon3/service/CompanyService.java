@@ -44,8 +44,6 @@ public class CompanyService extends ClientService{
     }
 
 
-
-
     //add coupon
     public void addCoupon(Coupon coupon) throws CustomExceptions {
         if (companyId == 0){

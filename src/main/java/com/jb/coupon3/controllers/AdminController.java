@@ -4,6 +4,7 @@ import com.jb.coupon3.beans.ClientType;
 import com.jb.coupon3.beans.Company;
 import com.jb.coupon3.beans.Customer;
 import com.jb.coupon3.exceptions.CustomExceptions;
+import com.jb.coupon3.repositories.CustomerRepo;
 import com.jb.coupon3.security.JWTutil;
 import com.jb.coupon3.service.AdminService;
 import lombok.RequiredArgsConstructor;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/GYGNcoupons/admin")
 /**
  * this class is used for the administrator API's methods implementation
@@ -40,8 +41,8 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.updateCompany(company);
         return ResponseEntity.ok()
-        .header("Authorization", token)
-                .body("company " + company.getName() + " updated");
+        .header("Authorization", newToken)
+                .body(company);
     }
 
 
@@ -59,7 +60,7 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.deleteCompany(companyId);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("company deleted");
     }
 
@@ -109,8 +110,8 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.updateCustomer(customer);
         return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " updated");
+                .header("Authorization", newToken)
+                .body(customer);
     }
 
     /**
@@ -159,7 +160,7 @@ public class AdminController {
         String newToken = jwTutil.checkUser(token, ClientType.ADMIN);
         adminService.deleteCustomer(id);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("customer deleted");
     }
 }

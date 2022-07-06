@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000", allowedHeaders = "*")
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RequestMapping("/GYGNcoupons/guest")
 public class GuestController {
     private final GuestService guestService;
@@ -35,7 +35,7 @@ public class GuestController {
     public ResponseEntity<?> addCompany (@RequestBody Company company) throws CustomExceptions {
         guestService.addCompany (company);
         return ResponseEntity.ok()
-                .body("company " + company.getName() + " added");
+                .body(company);
     }
 
     /**
@@ -49,7 +49,7 @@ public class GuestController {
 
        guestService.addCustomer(customer);
         return ResponseEntity.ok()
-                .body("customer " + customer.getFirstName() + " " + customer.getLastName() + " added");
+                .body(customer);
     }
 
 

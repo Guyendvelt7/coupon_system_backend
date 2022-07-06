@@ -23,13 +23,13 @@ import java.util.Map;
  */
 public class JWTutil {
 
-        //type of encryption
-        private String signatureAlgorithm = SignatureAlgorithm.HS256.getJcaName();
-        //secret key
-        private final String secretKey = "this+is+geri+niv+guy+yoav+best+coupon+project+evevrrrrr";
-        //private key
-        private Key decodedSecretKey = new SecretKeySpec
-                (Base64.getDecoder().decode(secretKey),this.signatureAlgorithm);
+    //type of encryption
+    private String signatureAlgorithm = SignatureAlgorithm.HS256.getJcaName();
+    //secret key
+    private final String secretKey = "this+is+geri+niv+guy+yoav+best+coupon+project+evevrrrrr";
+    //private key
+    private Key decodedSecretKey = new SecretKeySpec
+            (Base64.getDecoder().decode(secretKey),this.signatureAlgorithm);
 
     /**
      * generate key (token)
@@ -37,11 +37,11 @@ public class JWTutil {
      *                    the token need to get claims which is the information in the hashcode
      * @return a new token used after every API request
      */
-        public String generateToken(UserDetails userDetails){
-            Map<String,Object> claims = new HashMap<>();
-            claims.put("userEmail",userDetails.getEmail());
-            return "Bearer "+createToken(claims,userDetails.getClientType().toString());
-        }
+    public String generateToken(UserDetails userDetails){
+        Map<String,Object> claims = new HashMap<>();
+        claims.put("userEmail",userDetails.getEmail());
+        return "Bearer "+createToken(claims,userDetails.getClientType().toString());
+    }
 
     /**
      * creation of new token using generateToken data
@@ -49,16 +49,16 @@ public class JWTutil {
      * @param userName client name defined in the login process
      * @return a new coded secured key (token) based on the  logged client information
      */
-        private String createToken(Map<String, Object> claims, String userName) {
-            Instant now = Instant.now();
-            return Jwts.builder()
-                    .setClaims(claims)
-                    .setSubject(userName)
-                    .setIssuedAt(Date.from(now))
-                    .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
-                    .signWith(decodedSecretKey)
-                    .compact();
-        }
+    private String createToken(Map<String, Object> claims, String userName) {
+        Instant now = Instant.now();
+        return Jwts.builder()
+                .setClaims(claims)
+                .setSubject(userName)
+                .setIssuedAt(Date.from(now))
+                .setExpiration(Date.from(now.plus(30, ChronoUnit.MINUTES)))
+                .signWith(decodedSecretKey)
+                .compact();
+    }
 
     /**
      * extraction of information from the token
@@ -67,10 +67,10 @@ public class JWTutil {
      * @throws ExpiredJwtException if the token has expired the given time on creation
      * @throws MalformedJwtException if the token is not entered correctly or missing a part
      */
-        private Claims extractAllClaims(String token) throws ExpiredJwtException, MalformedJwtException  {
-            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
-            return jwtParser.parseClaimsJws(token).getBody();
-        }
+    private Claims extractAllClaims(String token) throws ExpiredJwtException, MalformedJwtException  {
+        JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
+        return jwtParser.parseClaimsJws(token).getBody();
+    }
 
     /**
      * verification that the client requesting the query is the client that received the original token
@@ -78,32 +78,32 @@ public class JWTutil {
      * @return a new token
      * @throws MalformedJwtException if the token is not entered correctly or missing a part
      */
-        public String checkUser(String token, ClientType clientType) throws MalformedJwtException, CustomExceptions {
-            if (!isRightClientType(token, clientType)) {
-                throw new CustomExceptions(OptionalExceptionMessages.DONT_HAVE_PERMISSION);
-            }
-            Claims claims = extractAllClaims(token.replace("Bearer ",""));
-            UserDetails userDetails = new UserDetails();
-            userDetails.setClientType(ClientType.valueOf(claims.getSubject()));
-            userDetails.setEmail((String)claims.get("userEmail"));
-            return generateToken(userDetails);
+    public String checkUser(String token, ClientType clientType) throws MalformedJwtException, CustomExceptions {
+        if (!isRightClientType(token, clientType)) {
+            throw new CustomExceptions(OptionalExceptionMessages.DONT_HAVE_PERMISSION);
+        }
+        Claims claims = extractAllClaims(token.replace("Bearer ",""));
+        UserDetails userDetails = new UserDetails();
+        userDetails.setClientType(ClientType.valueOf(claims.getSubject()));
+        userDetails.setEmail((String)claims.get("userEmail"));
+        return generateToken(userDetails);
     }
 
-        private String extractSignature(String token) throws ExpiredJwtException, MalformedJwtException  {
-            JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
-            return jwtParser.parseClaimsJws(token).getSignature();
-        }
-
-        private String extractSubject(String token)  {
-            return extractAllClaims(token.replace("Bearer ","")).getSubject();
-        }
-
-        private ClientType extractClientType(String token) {
-            return ClientType.valueOf(extractSubject(token));
-        }
-
-        private boolean isRightClientType(String token, ClientType clientType) {
-            return extractClientType(token).equals(clientType);
-        }
-
+    private String extractSignature(String token) throws ExpiredJwtException, MalformedJwtException  {
+        JwtParser jwtParser = Jwts.parserBuilder().setSigningKey(decodedSecretKey).build();
+        return jwtParser.parseClaimsJws(token).getSignature();
     }
+
+    private String extractSubject(String token)  {
+        return extractAllClaims(token.replace("Bearer ","")).getSubject();
+    }
+
+    public ClientType extractClientType(String token) {
+        return ClientType.valueOf(extractSubject(token));
+    }
+
+    private boolean isRightClientType(String token, ClientType clientType) {
+        return extractClientType(token).equals(clientType);
+    }
+
+}

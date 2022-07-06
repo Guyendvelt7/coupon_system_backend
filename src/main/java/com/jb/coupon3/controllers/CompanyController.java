@@ -29,20 +29,6 @@ public class CompanyController {
     private final AdminService adminService;
     private final JWTutil jwTutil;
 
-    //add java docs
-    @PutMapping("/updateCompany")
-    @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<?> updateCompany (@RequestBody Company company, @RequestHeader(name = "Authorization") String token) throws CustomExceptions {
-        String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
-        companyService.updateCompany(company);
-        return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("company " + company.getName() + " updated");
-    }
-
-
-
-
 
 
     /**
@@ -58,8 +44,8 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         adminService.updateCompany(company);
         return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("company " + company.getName() + " updated");
+                .header("Authorization", newToken)
+                .body(company);
     }
 
     /**
@@ -77,8 +63,8 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.addCoupon(coupon);
         return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("coupon " + coupon.getTitle() + " added");
+                .header("Authorization", newToken)
+                .body(coupon);
     }
 
 
@@ -97,8 +83,8 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.updateCoupon(coupon);
         return ResponseEntity.ok()
-                .header("Authorization", token)
-                .body("coupon " + coupon.getTitle() + " updated");
+                .header("Authorization", newToken)
+                .body(coupon);
     }
 
     /**
@@ -114,7 +100,7 @@ public class CompanyController {
         String newToken = jwTutil.checkUser(token, ClientType.COMPANY);
         companyService.deleteCoupon(couponId);
         return ResponseEntity.ok()
-                .header("Authorization", token)
+                .header("Authorization", newToken)
                 .body("coupon deleted");
     }
 
